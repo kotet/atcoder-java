@@ -1,10 +1,10 @@
-DOCKER="sudo docker run -i --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp java:openjdk-8-alpine"
-BUILD="$DOCKER javac Main.java"
-RUN="$DOCKER java Main"
+# DOCKER="sudo docker run -i --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp java:openjdk-8-alpine"
+# BUILD="$DOCKER javac Main.java"
+RUN="python3 -B ./Main.py"
 
-echo "Building..."
-echo $BUILD
-$BUILD
+# echo "Building..."
+# echo $BUILD
+# $BUILD
 
 if [ ! $? = 0 ]; then
     echo "Build failed."
@@ -29,4 +29,4 @@ for file in `ls input`; do
     bat output/$file
 done
 
-rm -f Main.class
+rm -f main.py
