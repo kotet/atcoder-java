@@ -1,6 +1,18 @@
-DOCKER="sudo docker run -i --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp java:openjdk-8-alpine"
+
+IMAGENAME="kotet-atcoder-java"
+
+if [ -z "$(sudo docker images -q $IMAGENAME)" ]; then
+    docker build -t $IMAGENAME .
+fi
+
+DOCKER="sudo docker run -i --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp $IMAGENAME"
 BUILD="$DOCKER javac Main.java"
-RUN="$DOCKER java Main"
+
+if [ "$1" = "debug" ]; then
+    RUN="$DOCKER timeout 5 java -Xss256M -enableassertions Main"
+else
+    RUN="$DOCKER timeout 5 java -Xss256M Main"
+fi
 
 echo "Building..."
 echo $BUILD
