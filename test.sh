@@ -6,7 +6,7 @@ if [ -z "$(sudo docker images -q $IMAGENAME)" ]; then
 fi
 
 DOCKER="sudo docker run -i --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp $IMAGENAME"
-BUILD="$DOCKER javac Main.java"
+BUILD="$DOCKER javac -encoding UTF-8 Main.java"
 
 if [ "$1" = "debug" ]; then
     RUN="$DOCKER timeout 5 java -Xss256M -enableassertions Main"
